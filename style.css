@@ -13,17 +13,23 @@ body {
     background: radial-gradient(circle at top, #1e1b4b 0%, var(--bg-color) 70%);
     color: var(--text-color);
     margin: 0;
-    padding: 40px 20px;
+    padding: 20px 15px;
     min-height: 100vh;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 header {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 800;
+    margin-top: 10px;
     margin-bottom: 10px;
     background: linear-gradient(to right, #ff2a5f, #ff7e5f);
     -webkit-background-clip: text;
@@ -33,19 +39,23 @@ h1 {
 
 header p {
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: 1rem;
+    padding: 0 10px;
 }
 
+/* Controls section upgraded for full responsiveness */
 .controls {
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
     max-width: 650px;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 30px auto;
     background: var(--card-bg);
     padding: 15px;
     border-radius: 16px;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
@@ -53,15 +63,16 @@ header p {
 input {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 14px 20px;
+    padding: 14px 15px;
     border-radius: 10px;
     color: white;
-    font-size: 1rem;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
+    width: 100%;
 }
 
-input[type="text"] { flex: 2; }
-input[type="number"] { flex: 0.5; text-align: center; }
+input[type="text"] { flex: 2; min-width: 0; }
+input[type="number"] { flex: 0.6; min-width: 0; text-align: center; }
 
 input:focus {
     outline: none;
@@ -70,16 +81,17 @@ input:focus {
 }
 
 button {
-    padding: 14px 28px;
+    padding: 14px 24px;
     cursor: pointer;
     background: linear-gradient(135deg, #ff2a5f, #ff5e3a);
     color: white;
     border: none;
     border-radius: 10px;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.95rem;
     box-shadow: 0 4px 15px var(--primary-glow);
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 button:hover {
@@ -89,11 +101,11 @@ button:hover {
 
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 .video-wrapper {
@@ -116,4 +128,27 @@ button:hover {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+/* Specially for Mobile Screens */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    .controls {
+        flex-direction: column; /* Mobile par automatic ek ke niche ek aa jayenge */
+        gap: 15px;
+        padding: 20px;
+    }
+    
+    input[type="text"], input[type="number"] {
+        flex: none;
+        width: 100%;
+    }
+    
+    button {
+        width: 100%;
+        white-space: normal;
+    }
 }
