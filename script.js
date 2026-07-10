@@ -3,10 +3,8 @@ function addVideos() {
     let count = parseInt(document.getElementById('tabCount').value);
     let container = document.getElementById('videoContainer');
     
-    // Container ko reset karein
     container.innerHTML = '';
 
-    // Solid Video ID Extractor
     let videoId = "";
     if (url.includes("v=")) {
         videoId = url.split("v=")[1].split("&")[0];
@@ -17,26 +15,27 @@ function addVideos() {
     }
 
     if (!videoId || videoId.length !== 11) {
-        alert("Sahi YouTube link enter karein! Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        alert("Sahi YouTube link enter karein!");
         return;
     }
 
     if (isNaN(count) || count < 1) {
-        alert("Please tabs ki sankhya enter karein!");
+        alert("Please tabs enter karein!");
         return;
     }
 
     if (count > 25) {
-        alert("Performance ke liye ek baar mein max 25 tabs hi chalayein!");
+        alert("Max 25 tabs hi chalayein!");
         return;
     }
 
-    // Saare tabs load honge fully multi-view aur auto-loop optimization ke sath
     for (let i = 0; i < count; i++) {
         let wrapper = document.createElement('div');
         wrapper.className = 'video-wrapper';
+        
+        // controls=1 aur modestbranding=0 kiya hai taaki volume aur proper settings button dikhe
         wrapper.innerHTML = `
-            <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playlist=${videoId}&loop=1" 
+            <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=1&modestbranding=0&playlist=${videoId}&loop=1" 
                     allow="autoplay; encrypted-media" 
                     allowfullscreen>
             </iframe>
