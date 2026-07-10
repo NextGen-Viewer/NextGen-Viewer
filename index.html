@@ -2,26 +2,85 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200">
-    <meta name="description" content="NextGen Viewer - Premium YouTube Multi-View tool. Watch multiple videos simultaneously, boost channel views, and increase watch time easily.">
-    <meta name="keywords" content="NextGen Viewer, YouTube Multi-View, Increase YouTube Views, YouTube Booster, Bulk YouTube Player, Watch Time Tool">
-    <title>NextGen Viewer | Premium Multi-View Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextGen Multi-Viewer Premium Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle at center, #0b0f19 0%, #030712 100%);
+        }
+        .premium-glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        /* Custom scrollbar for multi windows grid */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1f2937; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #374151; }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>NextGen Viewer</h1>
-        <p>Ek saath multiple videos run karein aur channel growth boost karein!
-        🛡️ IP Bypass Protection: Make sure your VPN/Proxy is ON before playing to bypass YouTube detection algorithm!</p>
-        <div class="controls">
-            <input type="text" id="ytLink" placeholder="Paste YouTube Link here...">
-            <input type="number" id="tabCount" placeholder="Tabs" min="1" max="25" value="4">
-            <button onclick="addVideos()">Play Videos</button>
-        </div>
-    </header>
-    
-    <div id="videoContainer" class="container"></div>
+<body class="text-white font-sans min-h-screen p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="premium-glass border border-gray-800/80 p-6 md:p-8 rounded-3xl shadow-2xl mb-8 relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        🚀 NextGen Multi-Viewer Pro
+                    </h1>
+                    <p class="text-xs text-gray-400 mt-1 font-medium tracking-wide">ADVANCED MULTI-SESSION INSTANCE CONTROLLER v2.0</p>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-950/60 border border-gray-800/60 py-2 px-4 rounded-xl max-w-max">
+                    <span class="w-2 h-2 rounded-full bg-gray-500" id="globalStatusDot"></span>
+                    <span class="text-xs font-mono font-semibold text-gray-400 uppercase tracking-wider" id="globalStatusText">Engine Idle</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-5">
+                <div class="lg:col-span-2 relative">
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">YouTube Video Link</label>
+                    <div class="relative">
+                        <input type="text" id="videoUrl" placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-gray-950/80 border border-gray-800 p-3.5 pl-4 rounded-xl focus:outline-none focus:border-indigo-500 text-sm tracking-wide text-gray-200 shadow-inner transition">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Stream Allocations</label>
+                    <select id="windowCount" class="w-full bg-gray-950/80 border border-gray-800 p-3.5 px-4 rounded-xl focus:outline-none focus:border-indigo-500 text-sm font-semibold text-gray-300 transition cursor-pointer">
+                        <option value="2">02 Windows (Low Resource)</option>
+                        <option value="4" selected>04 Windows (Standard Master)</option>
+                        <option value="6">06 Windows (Balanced Grid)</option>
+                        <option value="8">08 Windows (Heavy Load)</option>
+                        <option value="12">12 Windows (Extreme Stress)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Anti-Spam Interlocking</label>
+                    <select id="delayBuffer" class="w-full bg-gray-950/80 border border-gray-800 p-3.5 px-4 rounded-xl focus:outline-none focus:border-indigo-500 text-sm font-semibold text-gray-300 transition cursor-pointer">
+                        <option value="0">No Stagger Delay</option>
+                        <option value="3" selected>3s Staggered (Recommended)</option>
+                        <option value="5">5s Safe Sequential</option>
+                        <option value="8">8s Deep Isolation</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-3 pt-4 border-t border-gray-800/40">
+                <button id="generateBtn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider py-3 px-6 rounded-xl transition-all shadow-lg shadow-indigo-600/10 active:scale-[0.98]">Deploy Core Grid</button>
+                <button id="bypassNoticeBtn" class="bg-gray-800/80 hover:bg-gray-700 text-gray-300 font-bold text-xs uppercase tracking-wider py-3 px-5 rounded-xl transition active:scale-[0.98]">Bypass Security Protocol</button>
+                <button id="clearAllBtn" class="bg-red-950/40 hover:bg-red-900/60 text-red-400 border border-red-900/30 font-bold text-xs uppercase tracking-wider py-3 px-5 rounded-xl transition active:scale-[0.98] ml-auto">Kill Grid Sessions</button>
+            </div>
+        </header>
+
+        <main id="viewerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 transition-all duration-300">
+            </main>
+    </div>
 
     <script src="script.js"></script>
 </body>
